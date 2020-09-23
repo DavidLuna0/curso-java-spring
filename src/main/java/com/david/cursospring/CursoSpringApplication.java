@@ -12,6 +12,8 @@ import com.david.cursospring.domain.Cidade;
 import com.david.cursospring.domain.Estado;
 import com.david.cursospring.domain.Produto;
 import com.david.cursospring.repositories.CategoriaRepository;
+import com.david.cursospring.repositories.CidadeRepository;
+import com.david.cursospring.repositories.EstadoRepository;
 import com.david.cursospring.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -22,6 +24,12 @@ public class CursoSpringApplication implements CommandLineRunner {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringApplication.class, args);
@@ -55,6 +63,9 @@ public class CursoSpringApplication implements CommandLineRunner {
 		
 		est1.getCidade().addAll(Arrays.asList(c1));
 		est2.getCidade().addAll(Arrays.asList(c2, c3));
+		
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
 		
 	}
