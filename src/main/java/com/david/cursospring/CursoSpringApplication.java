@@ -10,12 +10,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.david.cursospring.domain.Categoria;
 import com.david.cursospring.domain.Produto;
 import com.david.cursospring.repositories.CategoriaRepository;
+import com.david.cursospring.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class CursoSpringApplication implements CommandLineRunner {
 	
 	@Autowired
 	private CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoSpringApplication.class, args);
@@ -38,7 +42,7 @@ public class CursoSpringApplication implements CommandLineRunner {
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2));
-		
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3));
 		
 		
 	}
