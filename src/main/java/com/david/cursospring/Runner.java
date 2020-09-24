@@ -17,6 +17,8 @@ import com.david.cursospring.domain.Produto;
 import com.david.cursospring.domain.enums.TipoCliente;
 import com.david.cursospring.repositories.CategoriaRepository;
 import com.david.cursospring.repositories.CidadeRepository;
+import com.david.cursospring.repositories.ClienteRepository;
+import com.david.cursospring.repositories.EnderecoRepository;
 import com.david.cursospring.repositories.EstadoRepository;
 import com.david.cursospring.repositories.ProdutoRepository;
 
@@ -36,6 +38,12 @@ public class Runner implements CommandLineRunner {
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -84,6 +92,9 @@ public class Runner implements CommandLineRunner {
 		Endereco e2 = new Endereco(null, "Rua aqui", "21", "teste", "aqui", "58405878", cl1, c2);
 		
 		cl1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cl1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		
 		
 		
