@@ -1,5 +1,6 @@
 package com.david.cursospring;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.slf4j.Logger;
@@ -13,7 +14,12 @@ import com.david.cursospring.domain.Cidade;
 import com.david.cursospring.domain.Cliente;
 import com.david.cursospring.domain.Endereco;
 import com.david.cursospring.domain.Estado;
+import com.david.cursospring.domain.Pagamento;
+import com.david.cursospring.domain.PagamentoBoleto;
+import com.david.cursospring.domain.PagamentoCartao;
+import com.david.cursospring.domain.Pedido;
 import com.david.cursospring.domain.Produto;
+import com.david.cursospring.domain.enums.EstadoPagamento;
 import com.david.cursospring.domain.enums.TipoCliente;
 import com.david.cursospring.repositories.CategoriaRepository;
 import com.david.cursospring.repositories.CidadeRepository;
@@ -92,9 +98,24 @@ public class Runner implements CommandLineRunner {
 		Endereco e2 = new Endereco(null, "Rua aqui", "21", "teste", "aqui", "58405878", cl1, c2);
 		
 		cl1.getEnderecos().addAll(Arrays.asList(e1, e2));
-		
+		logger.info("Saving clientes");
 		clienteRepository.saveAll(Arrays.asList(cl1));
+		
+		logger.info("Saving enderecos");
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		
+		Pedido ped1 = new Pedido(null, sdf.parse("24/09/2020 17:37:41"), cl1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("24/09/2020 15:37:41"), cl1, e2);
+		
+		Pagamento pag1 = new PagamentoCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pag1);
+		
+		Pagamento pag2 = new PagamentoBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("24/09/2020 15:37:41"), null);
+		ped2.setPagamento(pag2);
+		
+		cl1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 		
 		
 		
