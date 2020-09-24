@@ -10,8 +10,11 @@ import org.springframework.stereotype.Component;
 
 import com.david.cursospring.domain.Categoria;
 import com.david.cursospring.domain.Cidade;
+import com.david.cursospring.domain.Cliente;
+import com.david.cursospring.domain.Endereco;
 import com.david.cursospring.domain.Estado;
 import com.david.cursospring.domain.Produto;
+import com.david.cursospring.domain.enums.TipoCliente;
 import com.david.cursospring.repositories.CategoriaRepository;
 import com.david.cursospring.repositories.CidadeRepository;
 import com.david.cursospring.repositories.EstadoRepository;
@@ -72,6 +75,16 @@ public class Runner implements CommandLineRunner {
 		
 		logger.info("Saving cidades");
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
+		
+		Cliente cl1 = new Cliente(null, "David", "email@email.com", "70457837779", TipoCliente.PESSOAFISICA);
+		
+		cl1.getTelefones().addAll(Arrays.asList("83988888888", "83999999999"));
+		
+		Endereco e1 = new Endereco(null, "Rua flores", "300", "Apto", "Jardim", "58407878", cl1, c1);
+		Endereco e2 = new Endereco(null, "Rua aqui", "21", "teste", "aqui", "58405878", cl1, c2);
+		
+		cl1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
 		
 		
 	}
