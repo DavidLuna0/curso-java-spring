@@ -2,6 +2,8 @@ package com.david.cursospring.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -21,20 +23,22 @@ public class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Date instant;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "endereco_entrega")
 	private Endereco enderecoEntrega;
-	
+
+	private Set<ItemPedido> itens = new HashSet<>();
+
 	public Pedido() {
-		
+
 	}
 
 	public Pedido(Integer id, Date instant, Cliente cliente, Endereco enderecoEntrega) {
@@ -84,6 +88,15 @@ public class Pedido implements Serializable {
 	public void setEnderecoEntrega(Endereco enderecoEntrega) {
 		this.enderecoEntrega = enderecoEntrega;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
 
 	@Override
 	public int hashCode() {
@@ -109,10 +122,5 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
+
 }
