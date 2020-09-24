@@ -26,6 +26,8 @@ import com.david.cursospring.repositories.CidadeRepository;
 import com.david.cursospring.repositories.ClienteRepository;
 import com.david.cursospring.repositories.EnderecoRepository;
 import com.david.cursospring.repositories.EstadoRepository;
+import com.david.cursospring.repositories.PagamentoRepository;
+import com.david.cursospring.repositories.PedidoRepository;
 import com.david.cursospring.repositories.ProdutoRepository;
 
 @Component
@@ -50,6 +52,12 @@ public class Runner implements CommandLineRunner {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -116,6 +124,12 @@ public class Runner implements CommandLineRunner {
 		ped2.setPagamento(pag2);
 		
 		cl1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		
+		logger.info("Saving pedidos");
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		
+		logger.info("Saving pagamentos");
+		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
 		
 		
 		
