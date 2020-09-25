@@ -2,10 +2,15 @@ package com.david.cursospring.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
 public class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	@EmbeddedId
 	private ItemPedidoPk id = new ItemPedidoPk();
 	
 	private Double desconto;
