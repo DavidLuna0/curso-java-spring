@@ -1,6 +1,5 @@
 package com.david.cursospring;
 
-import java.awt.event.ItemEvent;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
@@ -28,6 +27,7 @@ import com.david.cursospring.repositories.CidadeRepository;
 import com.david.cursospring.repositories.ClienteRepository;
 import com.david.cursospring.repositories.EnderecoRepository;
 import com.david.cursospring.repositories.EstadoRepository;
+import com.david.cursospring.repositories.ItemPedidoRepository;
 import com.david.cursospring.repositories.PagamentoRepository;
 import com.david.cursospring.repositories.PedidoRepository;
 import com.david.cursospring.repositories.ProdutoRepository;
@@ -60,6 +60,9 @@ public class Runner implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -143,6 +146,9 @@ public class Runner implements CommandLineRunner {
 		p1.getItens().addAll(Arrays.asList(ip1));
 		p2.getItens().addAll(Arrays.asList(ip3));
 		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		logger.info("Saving Itens de Pedido");
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 		
 		
 		
