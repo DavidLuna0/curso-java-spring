@@ -3,6 +3,7 @@ package com.david.cursospring.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.david.cursospring.domain.Cliente;
 import com.david.cursospring.dto.CategoriaDTO;
 import com.david.cursospring.services.exceptions.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +44,13 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		findById(obj.getId());
-		return categoriaRepository.save(obj);
+		Categoria newCategoria = findById(obj.getId());
+		updateData(newCategoria, obj);
+		return categoriaRepository.save(newCategoria);
+	}
+
+	private void updateData(Categoria newCategoria, Categoria obj) {
+		newCategoria.setNome(obj.getNome());
 	}
 
 	public void delete(Integer id) {
