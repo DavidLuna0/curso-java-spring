@@ -1,6 +1,9 @@
 package com.david.cursospring.resources;
 
+import com.david.cursospring.domain.Categoria;
+import com.david.cursospring.dto.CategoriaDTO;
 import com.david.cursospring.dto.ClienteDTO;
+import com.david.cursospring.dto.ClienteNewDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +49,14 @@ public class ClienteResource {
 	public ResponseEntity<Cliente> findById(@PathVariable Integer id) {
 		Cliente obj = clienteService.findById(id);
 		return ResponseEntity.ok().body(obj);
+	}
+
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {
+		Cliente obj = clienteService.fromDTO(objDTO);
+		obj = clienteService.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
