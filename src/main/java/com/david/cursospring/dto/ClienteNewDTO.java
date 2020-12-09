@@ -1,23 +1,43 @@
 package com.david.cursospring.dto;
 
+import com.david.cursospring.services.validation.ClienteInsert;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty(message = "O nome é obrigatorio")
+    @Length(min=5, max=120, message = "O tamanho deve ser entre 5 e 120 caracteres")
     private String nome;
+
+    @NotEmpty(message = "O email é obrigatorio")
+    @Email(message = "Email inválido")
     private String email;
+
+    @NotEmpty(message = "O cpf/cnpj é obrigatorio")
     private String cpfCnpj;
     private Integer tipo;
 
     private Integer id;
+
+    @NotEmpty(message = "O logradouro é obrigatorio")
     private String logradouro;
+
+    @NotEmpty(message = "O numero é obrigatorio")
     private String numero;
     private String complemento;
     private String bairro;
+
+    @NotEmpty(message = "O cep é obrigatorio")
     private String cep;
 
+    @NotEmpty(message = "O telefone é obrigatorio")
     private String telefone1;
     private String telefone2;
     private String telefone3;
